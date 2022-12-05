@@ -1,9 +1,9 @@
-import { type } from "@testing-library/user-event/dist/type";
+/* eslint-disable no-useless-escape */
 import React, { useEffect, useState } from "react";
 import styles from './UserForm.module.css';
+import {getOptions, postForm} from '../services/UserService';
 
 function UserForm() {
-  const endpointURL = "https://frontend-take-home.fetchrewards.com/form";
   
   // input fields
   const [name, setName] = useState("");
@@ -41,15 +41,13 @@ function UserForm() {
     "state": state
   }
 
-  // GET occupations and states for dropdown
+  // Use UserService to get options for dropdown
   useEffect(() => {
-    fetch(endpointURL)
-      .then(res => res.json()
-      .then(data => {
-      setOccupationsArray(data.occupations) 
-      setStatesArray(data.states);
-      }))
-  }, []);
+    getOptions().then(data => {
+      setOccupationsArray(data.occupations);
+      setStatesArray(data.states.map(state => state.name));
+    }
+  )}, [])
 
 
   // basic validation to check all inputs are submitted + length / pattern validation for name, email, password inputs
@@ -115,19 +113,19 @@ function UserForm() {
     e.preventDefault();
     setIsValidated(false);
     setIsSubmitted(true);
-    fetch(endpointURL, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(formInputs)
+    postForm(formInputs).then(response => {
+      
+      if(response === 201) {
+        setIsSubmitted(false);
+        setIsRegistered(true);
+        e.target.reset();
+      } else {
+        setIsSubmitted(true);
+        setIsRegistered(false);
+      }
+      
     });
-    setTimeout(() => {
-      setIsSubmitted(false);
-      setIsRegistered(true);
       console.log(JSON.stringify(formInputs));
-      e.target.reset();
-    }, 2000);
   }
   return (
     <>
@@ -159,7 +157,7 @@ function UserForm() {
           <label htmlFor="state">State</label>
           <select name="state" id="state" onChange={(e)=> {validate(e, 'state')}}>
             <option value="default">Select</option>
-            {statesArray.map(data => <option key={data.name}>{data.name}</option>)}
+            {statesArray.map(data => <option key={data}>{data}</option>)}
           </select>
         </p>
         {/* Error message */}
@@ -179,15 +177,19 @@ function UserForm() {
           !isFilled ? <button className={styles.inProgress} type="submit" disabled={!isFilled}>Create</button>
           : isValidated ? <button type="submit">Create</button>
           : isSubmitted ? <button className={styles.inProgress} type="submit">Creating ...</button>
-          : <button>Created <span className={styles.successIcon}>&#128526;</span>
-            </button> 
+          : isRegistered ? <button>Created <span className={styles.successIcon}>&#128526;</span></button>
+          : !isRegistered && isSubmitted ? <button>Oops</button>
+          : null
         }
         </div>
       </form>
 
-      {/* Success message upon registration */}
+      {/* Success or Failure message upon registration attempt*/}
       <div>
-        {isRegistered ? <h3>Hi {name.slice(0, name.indexOf(' '))}, welcome to Fetch! Check your inbox and start earning rewards.</h3> : null }
+        {
+        isRegistered ? <h3>Hi {name.slice(0, name.indexOf(' '))}, welcome to Fetch! Check your inbox and start earning rewards.</h3>
+        : !isRegistered && isSubmitted ?  <h3>Oops! Registration has failed, please contact one of our representatives at (123) 456 - 789 for help.</h3> 
+        : null }
       </div>
     </>
   )

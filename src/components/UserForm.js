@@ -52,7 +52,7 @@ function UserForm() {
   }, []);
 
 
-  // basic validation to check all inputs are submitted
+  // basic validation to check all inputs are submitted + length / pattern validation for name, email, password inputs
   function validate(e, inputType) {
     setTimeout(() => {
       

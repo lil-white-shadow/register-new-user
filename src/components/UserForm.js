@@ -149,14 +149,14 @@ function UserForm() {
         <p>
           <label htmlFor="occupation">Occupation</label>
           <select name="occupation" id="occupation" onChange={(e)=> {validate(e, 'occupation')}}>
-            <option value="default">Select</option>
+            <option value="default">Select occupation</option>
             {occupationsArray.map(data => <option key={data}>{data}</option>)}
           </select>
         </p>
         <p>
           <label htmlFor="state">State</label>
           <select name="state" id="state" onChange={(e)=> {validate(e, 'state')}}>
-            <option value="default">Select</option>
+            <option value="default">Select State</option>
             {statesArray.map(data => <option key={data}>{data}</option>)}
           </select>
         </p>

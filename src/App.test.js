@@ -1,8 +1,15 @@
+import { toBeInTheDocument } from '@testing-library/jest-dom/dist/matchers';
 import { render, screen } from '@testing-library/react';
 import App from './App';
 
-test('renders learn react link', () => {
+test('renders logo', () => {
   render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+  const logo = screen.getByText("Fetch");
+  expect(logo).toBeInTheDocument();
+});
+
+test('renders heading', () => {
+  render(<App />);
+  const heading = screen.getByText("Create your new account");
+  expect(heading).toBeInTheDocument();
 });

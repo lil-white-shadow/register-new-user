@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/user-registration-form/static/css/main.37582f3c.css",
-    "main.js": "/user-registration-form/static/js/main.fdef65b2.js",
-    "static/js/787.369ad481.chunk.js": "/user-registration-form/static/js/787.369ad481.chunk.js",
-    "index.html": "/user-registration-form/index.html",
-    "main.37582f3c.css.map": "/user-registration-form/static/css/main.37582f3c.css.map",
-    "main.fdef65b2.js.map": "/user-registration-form/static/js/main.fdef65b2.js.map",
-    "787.369ad481.chunk.js.map": "/user-registration-form/static/js/787.369ad481.chunk.js.map"
+    "main.css": "/user_registration_form/static/css/main.37582f3c.css",
+    "main.js": "/user_registration_form/static/js/main.aa2a11a9.js",
+    "static/js/787.369ad481.chunk.js": "/user_registration_form/static/js/787.369ad481.chunk.js",
+    "index.html": "/user_registration_form/index.html",
+    "main.37582f3c.css.map": "/user_registration_form/static/css/main.37582f3c.css.map",
+    "main.aa2a11a9.js.map": "/user_registration_form/static/js/main.aa2a11a9.js.map",
+    "787.369ad481.chunk.js.map": "/user_registration_form/static/js/787.369ad481.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.37582f3c.css",
-    "static/js/main.fdef65b2.js"
+    "static/js/main.aa2a11a9.js"
   ]
 }
